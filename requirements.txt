@@ -1,0 +1,16 @@
+# Multi-Agent Text-to-SQL System Dependencies
+langgraph>=0.2.0
+langchain-anthropic>=0.1.23
+langchain-core>=0.2.0
+mcp>=1.0.0
+pydantic>=2.7.0
+psycopg2-binary>=2.9.9
+asyncpg>=0.29.0
+tabulate>=0.9.0
+sqlparse>=0.5.0
+python-dotenv>=1.0.1
+typing-extensions>=4.11.0
+
+# Testing & Utilities
+pytest>=8.0.0
+pytest-asyncio>=0.23.0

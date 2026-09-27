@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-text2sql-service
+  namespace: analytics-staging
+  labels:
+    app: mcp-text2sql-agent
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+    targetPort: 8000
+    name: http-mcp
+  selector:
+    app: mcp-text2sql-agent

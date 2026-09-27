@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-text2sql-agent
+  namespace: analytics-staging
+  labels:
+    app: mcp-text2sql-agent
+    tier: staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mcp-text2sql-agent
+  template:
+    metadata:
+      labels:
+        app: mcp-text2sql-agent
+    spec:
+      containers:
+      - name: agent-container
+        image: cloudview.io/analytics/mcp-text2sql-agent:v1.0.0
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: text2sql-staging-config
+        env:
+        - name: ANTHROPIC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: anthropic-api-secret
+              key: api-key
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: password
+        ports:
+        - containerPort: 8000
+          name: http-mcp
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
